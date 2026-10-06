@@ -1,0 +1,75 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Complete project documentation",
+      "assignedTo": "John Smith",
+      "priority": "High",
+      "status": "Completed"
+    },
+    {
+      "id": "2",
+      "title": "Review UI design",
+      "assignedTo": "Sarah Wilson",
+      "priority": "Medium",
+      "status": "In Progress"
+    },
+    {
+      "id": "3",
+      "title": "Prepare weekly report",
+      "assignedTo": "Michael Brown",
+      "priority": "Low",
+      "status": "To Do"
+    },
+    {
+      "id": "4",
+      "title": "Fix login page issue",
+      "assignedTo": "Emily Davis",
+      "priority": "High",
+      "status": "Completed"
+    },
+    {
+      "id": "5",
+      "title": "Test dashboard responsiveness",
+      "assignedTo": "David Miller",
+      "priority": "Medium",
+      "status": "In Progress"
+    },
+    {
+      "id": "6",
+      "title": "Update employee records",
+      "assignedTo": "Jessica Taylor",
+      "priority": "Low",
+      "status": "To Do"
+    },
+    {
+      "id": "7",
+      "title": "Prepare client presentation",
+      "assignedTo": "Robert Wilson",
+      "priority": "High",
+      "status": "In Progress"
+    },
+    {
+      "id": "8",
+      "title": "Review testing results",
+      "assignedTo": "Emma Johnson",
+      "priority": "Medium",
+      "status": "Completed"
+    },
+    {
+      "id": "9",
+      "title": "Update API Documentation",
+      "assignedTo": "Natalie Somerset",
+      "priority": "High",
+      "status": "To Do"
+    },
+    {
+      "title": "Prepare Internship Presentation",
+      "assignedTo": "Surjeet Kaur",
+      "priority": "Medium",
+      "status": "To Do",
+      "id": "T-rySNCKSsg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

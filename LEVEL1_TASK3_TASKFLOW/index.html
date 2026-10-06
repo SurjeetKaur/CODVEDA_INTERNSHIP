@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taskflow | Employee Task Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="logo">Taskflow</div>
+
+    <!-- navbar for the dashboard with links to different sections of the page and a 
+    profile section for the admin user. -->
+    <nav>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#tasks">Tasks</a>
+      <a href="#team">Team</a>
+    </nav>
+
+    <div class="profile">Admin</div>
+  </div>
+  <!-- Dashboard -->
+  <main id="dashboard">
+    <section class="welcome">
+      <div>
+        <p class="eyebrow">TEAM WORKSPACE</p>
+        <h1 id="greeting"></h1>
+        <p>Here's what's happening with your team's work.</p>
+      </div>
+
+      <button id="refreshBtn">↻ Refresh Data</button>
+    </section>
+
+    <!-- Dashboard summary cards -->
+    <section class="stats" aria-label="Task summary">
+      <article class="stat-card">
+        <span class="stat-label">Total Tasks</span>
+        <strong id="totalTasks">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">To Do</span>
+        <strong id="todoTasks">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">In Progress</span>
+        <strong id="progressTasks">0</strong>
+      </article>
+
+      <article class="stat-card">
+        <span class="stat-label">Completed</span>
+        <strong id="completedTasks">0</strong>
+      </article>
+    </section>
+
+    <!-- Dynamic REST API data -->
+    <section id="tasks" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Recent Tasks</h2>
+          <p id="statusMessage">Loading tasks...</p>
+        </div>
+        <span class="api-label">REST API</span>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Assigned To</th>
+              <th>Priority</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="taskTableBody">
+            <!-- JavaScript inserts API data here -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Small activity section -->
+    <section id="team" class="panel activity-panel">
+      <div class="panel-header">
+        <div>
+          <h2>Recent Activity</h2>
+          <p>Latest team updates</p>
+        </div>
+      </div>
+      
+      <div id="activityList" class="activity-list">
+        <!-- JavaScript inserts activity -->
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer>
+    TASKFLOW • Employee Task Dashboard 
+    <span>Designed & Developed By Surjeet Kaur</span>
+  </footer>
+  <!-- javascript file link -->
+  <script src="script.js"></script>
+</body>
+</html>
