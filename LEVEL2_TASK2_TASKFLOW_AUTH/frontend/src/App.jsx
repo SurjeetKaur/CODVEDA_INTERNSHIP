@@ -1,122 +1,228 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [showLogin, setShowLogin] = useState(true);
+  const [message, setMessage] = useState("");
+  const [profile, setProfile] = useState(null);
+  const [profileError, setProfileError] = useState("");
+
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  const user = JSON.parse(
+    localStorage.getItem("user") || "null"
+  );
+
+  // Fetch protected profile using JWT
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setProfile(null);
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/auth/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Unable to load profile"
+          );
+        }
+
+        setProfile(data.user);
+        setProfileError("");
+      } catch (error) {
+        setProfileError(error.message);
+      }
+    };
+
+    fetchProfile();
+  }, [isLoggedIn]);
+
+  // Login
+  const handleLogin = (data) => {
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    setProfile(data.user);
+    setMessage(`Welcome, ${data.user.name}!`);
+  };
+
+  // Signup
+  const handleSignup = (data) => {
+    setMessage(data.message);
+    setShowLogin(true);
+  };
+
+  // Logout
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    setProfile(null);
+    setProfileError("");
+    setMessage("");
+  };
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div className="auth-page">
+      <div className="auth-container">
+
+        {/* Left Branding Panel */}
+        <div className="brand-panel">
+          <div className="brand-tag">
+            Employee Management
+          </div>
+
+          <h1>TaskFlow</h1>
+
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            A simple and secure workspace for managing
+            employees, tasks, and daily team activities.
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        {/* Right Content Panel */}
+        <div className="form-panel">
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          {/* Success / General Message */}
+          {message && (
+            <div className="message">
+              {message}
+            </div>
+          )}
+
+          {/* Logged In Dashboard */}
+          {isLoggedIn ? (
+            <>
+              <h2>Welcome back!</h2>
+
+              <p className="form-subtitle">
+                You are successfully logged in to TaskFlow.
+              </p>
+
+              <div className="dashboard-card">
+
+                {/* Account */}
+                <div>
+                  <span className="dashboard-label">
+                    Account
+                  </span>
+
+                  <strong>
+                    {profile?.name || user?.name}
+                  </strong>
+                </div>
+
+                {/* Email */}
+                <div>
+                  <span className="dashboard-label">
+                    Email
+                  </span>
+
+                  <strong>
+                    {profile?.email || user?.email}
+                  </strong>
+                </div>
+
+                {/* Role */}
+                <div>
+                  <span className="dashboard-label">
+                    Role
+                  </span>
+
+                  <strong>
+                    {profile?.role || user?.role}
+                  </strong>
+                </div>
+
+                {/* Authentication Status */}
+                <div>
+                  <span className="dashboard-label">
+                    Access
+                  </span>
+
+                  <strong>
+                    {profile
+                      ? "Authenticated"
+                      : "Checking..."}
+                  </strong>
+                </div>
+
+              </div>
+
+              {/* Profile API Error */}
+              {profileError && (
+                <p className="error-message">
+                  {profileError}
+                </p>
+              )}
+
+              <button
+                className="logout-button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </>
+          ) : showLogin ? (
+            <>
+              {/* Login Form */}
+              <Login onLogin={handleLogin} />
+
+              <div className="switch-text">
+                Don't have an account?{" "}
+
+                <button
+                  className="switch-button"
+                  onClick={() => {
+                    setMessage("");
+                    setShowLogin(false);
+                  }}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Signup Form */}
+              <Signup onSignup={handleSignup} />
+
+              <div className="switch-text">
+                Already have an account?{" "}
+
+                <button
+                  className="switch-button"
+                  onClick={() => {
+                    setMessage("");
+                    setShowLogin(true);
+                  }}
+                >
+                  Login
+                </button>
+              </div>
+            </>
+          )}
+
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
