@@ -1,3 +1,4 @@
+# LEVEL3 TASK2: WEB SOCKETS FOR REAL TIME COMMUNICATION
 # Taskflow – Real-Time Team Communication
 
 Taskflow is a real-time team communication dashboard developed as part of an internship project. It helps teams manage employee tasks, track progress, and communicate through real-time chat and notifications.
@@ -75,9 +76,10 @@ Configure the required environment variables in `backend/.env` according to your
 
 Start the backend using the script configured in `backend/package.json`. For example:
 
-
 npm run dev
+The backend server should run at:
 
+http://localhost:5000
 
 ### 3. Start the frontend
 

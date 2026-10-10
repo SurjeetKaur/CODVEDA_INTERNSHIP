@@ -121,4 +121,90 @@ LEVEL2_TASK2_AUTH_TASKFLOW/
 │
 └── README.md
 
+## How to Run the Project
+
+Prerequisites
+
+Make sure the following are installed:
+
+Node.js and npm
+
+MongoDB Atlas account
+
+Visual Studio Code
+
+1. Clone the Repository
+
+Open the terminal and run:
+
+git clone https://github.com/SurjeetKaur/CODVEDA_INTERNSHIP.git
+cd CODVEDA_INTERNSHIP/LEVEL2_TASK2_AUTH_TASKFLOW
+
+2. Configure and Start the Backend
+
+Navigate to the backend folder:
+
+cd backend
+npm install
+
+Create a .env file inside the backend folder and add the following configuration:
+
+PORT=5000
+MONGO_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_secure_secret_key
+
+Replace the placeholder values with your actual MongoDB Atlas connection string and a strong, private JWT secret.
+
+Start the backend server:
+
+npm start
+
+If your backend/package.json uses Nodemon with a dev script, you can instead run:
+
+npm run dev
+
+Keep the backend terminal running. The server should start at:
+
+http://localhost:5000
+
+3. Configure and Start the Frontend
+
+Open a second terminal in Visual Studio Code.
+
+If the terminal starts at the project root, run:
+
+cd frontend
+npm install
+npm run dev
+
+If you are still inside the backend folder, run:
+
+cd ../frontend
+npm install
+npm run dev
+
+Vite will display a local development URL, usually:
+
+http://localhost:5173
+
+Open the displayed URL in your browser to access the application.
+
+4. Test the Application
+
+Register a new user using the Signup page.
+
+Log in using the registered credentials.
+
+Test the protected profile route.
+
+Test Admin-only access using an authorized Admin account.
+
+Verify that Employee accounts cannot access Admin-only resources.
+
+Test logout functionality.
+
+Use Postman to test signup, login, and protected API routes.
+
+Note: Keep both backend and frontend terminals running while using the application. Ensure MongoDB Atlas is configured correctly and that the frontend uses the correct backend API URL.
+
 ## Designed & Developed By Surjeet Kaur

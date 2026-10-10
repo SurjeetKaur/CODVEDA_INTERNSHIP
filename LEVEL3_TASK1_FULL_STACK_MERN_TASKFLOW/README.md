@@ -168,4 +168,84 @@ TaskFlow/
 │
 └── README.md
 
+## How to Run the Project
+
+Prerequisites
+
+Make sure you have installed:
+
+Node.js and npm
+
+MongoDB or a MongoDB Atlas account
+
+1. Clone the Repository
+
+git clone https://github.com/SurjeetKaur/CODVEDA_INTERNSHIP.git
+cd CODVEDA_INTERNSHIP
+
+Navigate to the folder containing the Level 3 Task 1 project.
+
+2. Configure the Backend
+
+Open a terminal in VS Code and run:
+
+cd backend
+npm install
+
+Create a .env file inside the backend folder and add your configuration:
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+
+Replace the placeholder values with your actual MongoDB connection string and a strong JWT secret. Use the environment variable names expected by your backend code.
+
+3. Start the Backend
+
+Run the command defined by your backend's package.json:
+
+npm start
+
+If your project uses a development script instead, run:
+
+npm run dev
+
+Keep this terminal running.
+
+4. Start the Frontend
+
+Open a second terminal in VS Code and navigate to the frontend folder:
+
+cd frontend
+npm install
+npm run dev
+
+5. Open the Application
+
+Open the local URL displayed by Vite, usually:
+
+http://localhost:5173
+
+Ensure the frontend API configuration in frontend/src/services/api.js points to your running backend.
+
+6. Test the Application
+
+Sign up and log in using valid credentials.
+
+Verify Admin task creation, assignment, editing, and deletion.
+
+Verify that Employees can view their assigned tasks and update their status.
+
+Test protected routes and role-based access permissions.
+
+ -----Important Notes-----
+
+Ensure MongoDB is running or your MongoDB Atlas connection is configured correctly.
+
+Keep both frontend and backend servers running.
+
+Do not commit your .env file or expose your JWT secret.
+
+Admin and Employee permissions must be enforced by the backend.
+
 # DEVELOPED & SUBMITTED BY SURJEET KAUR
